@@ -1,0 +1,5 @@
+test_case,item,subTotal,Tax,Total
+TC1,Sauce Labs Backpack,29.99,2.4,32.39
+TC2,Sauce Labs,30,5,35
+TC3,value 33,foobar321,,
+TC4,value 44,foobar4321,,
