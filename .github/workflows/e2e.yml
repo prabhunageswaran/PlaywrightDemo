@@ -1,0 +1,73 @@
+name: Playwright E2E
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Environment to run tests against'
+        required: true
+        default: 'qa'
+        type: choice
+        options:
+          - qa
+          - uat
+          - prod
+      test:
+        description: 'Test file or pattern to run (optional)'
+        required: false
+        default: 'tests/e2e-1.spec.ts'
+
+jobs:
+  test:
+    name: Run Playwright E2E
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        env:
+          CI: true
+          ENV: ${{ inputs.env }}
+        run: |
+          echo "Running Playwright for file/pattern: '${{ inputs.test }}' on env: '${{ inputs.env }}'"
+          # produce both GitHub and HTML reporters, enable trace and video so we can upload them
+          ENV="${{ inputs.env }}" npx playwright test "${{ inputs.test }}" --reporter=github,html --trace=on --video=on
+
+      - name: Upload Playwright HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ github.run_id }}
+          path: playwright-report
+
+      - name: Upload test-results, traces and videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ github.run_id }}
+          path: |
+            test-results
+            trace
+            traces
+            playwright-report/**/trace.zip
+            **/video
+            **/videos
+            test-results/**/video
+            playwright-report/**/video

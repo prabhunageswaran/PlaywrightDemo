@@ -4,3 +4,4 @@ teardown('delete database', async ({ }) => {
   console.log('deleting test database...');
   // Delete the database
 });
+// Simulate async operation
