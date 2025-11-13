@@ -25,6 +25,10 @@ jobs:
   test:
     name: Run Playwright E2E
     runs-on: ubuntu-latest
+    env:
+      # Use defaults if not defined
+      ENV: ${{ github.event.inputs.env || 'qa' }}
+      TEST: ${{ github.event.inputs.test || '/tests/e2e-1.spec.ts' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
