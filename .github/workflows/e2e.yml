@@ -19,7 +19,7 @@ on:
       test:
         description: 'Test file or pattern to run (optional)'
         required: false
-        default: 'tests/e2e-1.spec.ts'
+        default: '/tests/e2e-1.spec.ts'
 
 jobs:
   test:
