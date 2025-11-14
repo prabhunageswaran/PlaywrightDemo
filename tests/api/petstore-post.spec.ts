@@ -11,7 +11,7 @@ test.describe('Petstore API - POST /pet (create) with e2e verification', () => {
       id,
       category: { id: id, name: 'summa' },
       name: 'summa',
-      photoUrls: ['string'],
+      photoUrls: ['urls..'],
       tags: [{ id: id, name: 'summa' }],
       status: 'available',
     };
