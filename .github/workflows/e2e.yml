@@ -48,11 +48,10 @@ jobs:
       - name: Run Playwright tests
         env:
           CI: true
-          ENV: ${{ inputs.env }}
         run: |
-          echo "Running Playwright for file/pattern: '${{ inputs.test }}' on env: '${{ inputs.env }}'"
+          echo "Running Playwright for file/pattern: '${{ env.test }}' on env: '${{ env.env }}'"
           # produce both GitHub and HTML reporters, enable trace and video so we can upload them
-          ENV="${{ inputs.env }}" npx playwright test "${{ inputs.test }}" --reporter=github,html --trace=on
+          ENV="${{ env.env }}" npx playwright test "${{ env.test }}" --reporter=github,html --trace=on --video=on
 
       - name: Upload Playwright HTML report
         if: always()
