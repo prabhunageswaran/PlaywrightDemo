@@ -57,7 +57,7 @@ test('E2E flow: add one item and complete checkout', async ({ page }) => {
   // 5️⃣ Checkout Step Two validations
   await checkoutStepTwo.verifyItemsInSummary([itemName]);
   //await checkoutStepTwo.verifyPriceSummary(29.99, 2.40, 32.39); // Example: adjust based on real pricing
-   await checkoutStepTwo.verifyPriceSummary(subTotal,Tax,Total); // Example: adjust based on real pricing
+   await checkoutStepTwo.verifyPriceSummary(Number(subTotal),Number(Tax),Number(Total)); // Example: adjust based on real pricing
   await checkoutStepTwo.clickFinish();
 
   // 6️⃣ Checkout Complete
