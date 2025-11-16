@@ -6,14 +6,17 @@ const BASE = 'https://petstore.swagger.io/v2';
 test.describe('Petstore API - GET /pet/{petId}', () => {
 
   test('GET pet by id - positive case (id=2)', async ({ request }, testInfo) => {
-    const id = 2;
+    const id = 1;
     const url = `${BASE}/pet/${id}`;
-    const requestDescriptor = { method: 'GET', url, headers: { accept: 'application/json' } };
-    const resp = await request.get(url, { headers: requestDescriptor.headers });
+    //const requestDescriptor = { method: 'GET', url, headers: { accept: 'application/json' } };
+    const resp = await request.get(url, { headers: { accept: 'application/json' }});
 
     // attach request and response to the report
-    const body = await attachReqRes('pet-2', requestDescriptor, resp, testInfo);
-
+    //const body = await attachReqRes('pet-2', requestDescriptor, resp, testInfo);
+    const text = await resp.text();
+    const body  = JSON.parse(text);
+ 
+    const code = resp.status();
     // HTTP status
     expect(resp.status(), 'expected 200 OK').toBe(200);
 
@@ -30,6 +33,7 @@ test.describe('Petstore API - GET /pet/{petId}', () => {
     if (body && typeof body === 'object' && 'name' in body) {
       expect(body.name).toBeDefined();
       expect(typeof body.name).toBe('string');
+      expect(body.name).toBe('catty');
     }
   });
 

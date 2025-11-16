@@ -8,11 +8,11 @@ test.describe('Petstore API - POST /pet (create) with e2e verification', () => {
     // choose an id unlikely to conflict
     const id = Date.now();
     const payload = {
-      id,
-      category: { id: id, name: 'summa' },
-      name: 'summa',
+      id:id,
+      category: { id: id, name: 'RRRR' },
+      name: 'RRRRR',
       photoUrls: ['urls..'],
-      tags: [{ id: id, name: 'summa' }],
+      tags: [{ id: id, name: 'RRRR' }],
       status: 'available',
     };
 
@@ -30,8 +30,8 @@ test.describe('Petstore API - POST /pet (create) with e2e verification', () => {
     }
 
     // Now GET to verify created
-    const getResp = await request.get(`${BASE}/pet/${id}`, { headers: { accept: 'application/json' } });
-    const got = await attachReqRes('get-created-pet', { method: 'GET', url: `${BASE}/pet/${id}` }, getResp, testInfo);
+    let getResp = await request.get(`${BASE}/pet/${id}`, { headers: { accept: 'application/json' } });
+    let got = await attachReqRes('get-created-pet', { method: 'GET', url: `${BASE}/pet/${id}` }, getResp, testInfo);
     expect(getResp.status(), 'expected 200 OK for get created').toBe(200);
     if (got && typeof got === 'object') {
       expect(got.id).toBe(id);
@@ -43,6 +43,13 @@ test.describe('Petstore API - POST /pet (create) with e2e verification', () => {
     const delResp = await request.delete(`${BASE}/pet/${id}`);
     await attachReqRes('delete-created-pet', { method: 'DELETE', url: `${BASE}/pet/${id}` }, delResp, testInfo);
     expect(delResp.status(), 'expected 200 OK on delete').toBe(200);
+
+    getResp = await request.get(`${BASE}/pet/${id}`, { headers: { accept: 'application/json' } });
+    got = await attachReqRes('get-deleted-pet', { method: 'GET', url: `${BASE}/pet/${id}` }, getResp, testInfo);
+    expect(getResp.status(), 'expected 404 after delete').toBe(404);
+
+
+
   });
 
   test('POST create pet - negative: missing name should be client error', async ({ request }, testInfo) => {

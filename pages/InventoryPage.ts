@@ -19,10 +19,7 @@ export class InventoryPage {
   /**
    * Navigate directly to the Inventory Page
    */
-  async goto() {
-    await this.page.goto('https://www.saucedemo.com/inventory.html');
-    await expect(this.page).toHaveURL(/.*inventory.html/); // ✅ Verify navigation success
-  }
+
 
   async goToCart() {
     await this.cartIcon.click();
@@ -41,10 +38,21 @@ export class InventoryPage {
     return 0; // ✅ No badge means empty cart
   }
 
+async addToCartmultipe(itemName: string[]) {
+   for (let i = 0; i < itemName.length; i++) {
+      await this.addToCart(itemName[i]);
+   }
+}
+
+
   /**
-   * Add an item to cart by item name
+   * Add an item to cart by item name ...Sauce Labs Backpack
    */
   async addToCart(itemName: string) {
+
+
+    //const item1 = "//div[@class='inventory_item']//div[text()='" + itemName + "']/../../..//button"
+
     const beforeCount = await this.getCartCount(); // ✅ Get count before adding
 
     const item = this.itemLocator.filter({ hasText: itemName });
@@ -55,6 +63,7 @@ export class InventoryPage {
 
     const removeButton = item.locator('button:has-text("Remove")');
     await expect(removeButton).toBeVisible(); // ✅ Button changed to Remove (added successfully)
+    await expect(addButton).not.toBeVisible();
 
     const afterCount = await this.getCartCount();
     await expect(afterCount).toBe(beforeCount + 1); // ✅ Verify cart count incremented
@@ -74,7 +83,7 @@ export class InventoryPage {
 
     const addButton = item.locator('button:has-text("Add to cart")');
     await expect(addButton).toBeVisible(); // ✅ Button changed to Add to cart (removed successfully)
-
+     
     const afterCount = await this.getCartCount();
     await expect(afterCount).toBe(beforeCount - 1); // ✅ Verify cart count decremented
   }

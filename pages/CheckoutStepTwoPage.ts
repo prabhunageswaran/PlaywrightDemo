@@ -22,6 +22,7 @@ export class CheckoutStepTwoPage {
     this.finishButton = page.locator('[data-test="finish"]');
     this.cancelButton = page.locator('[data-test="cancel"]');
   }
+ 
 
   /**
    * ✅ Verify that expected items are present in the summary
