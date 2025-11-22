@@ -10,7 +10,7 @@ test("TC1",async ({page})=>{
    await expect(page).toHaveTitle('Swag Labs');
 });
 
-test("TC2",async ({page})=>{
+test("TC2",{tag: '@Regression'},async ({page})=>{
   await page.goto('https://www.saucedemo.com/');
     await expect(page).toHaveTitle('Swag Labs');
     const login = new LoginPage(page);

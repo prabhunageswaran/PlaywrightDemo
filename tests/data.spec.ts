@@ -5,12 +5,14 @@ import { parse } from "csv-parse/sync";
 import { test } from "@playwright/test";
 
 // 1️⃣ Read and parse the CSV
-const records = parse(
+/*const records = parse(
 fs.readFileSync(path.join(__dirname, "inputs.csv")), {
 columns: true,
 skip_empty_lines: true,
 }
-);
+);*/
+
+const records = ""; //--- IGNORE ---
 
 // 2️⃣ Find the single row with test_case = "TC1"
 

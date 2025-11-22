@@ -8,8 +8,7 @@ import { CheckoutCompletePage } from '../pages/CheckoutCompletePage';
 import {readCsv} from '../utils/csvreader';
 import { it } from 'node:test';
 
-test('E2E flow: add one item and complete checkout', {tag: '@Regression'},
-  async ({ page }) => {
+test('E2E flow Copy: add one item and complete checkout', async ({ page }) => {
 
   const records: any[] = await readCsv('inputs.csv');
   const record = records.find((r: any) => r.test_case === "TC1");
