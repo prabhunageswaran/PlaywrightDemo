@@ -22,6 +22,7 @@ test.describe('Petstore API - GET /pet/{petId}', () => {
 
     // Content-Type header and JSON body
     const ct = resp.headers()['content-type'] || '';
+    
     expect(ct.toLowerCase()).toContain('application/json');
 
     // Basic shape assertions

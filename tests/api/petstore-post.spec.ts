@@ -15,6 +15,7 @@ test.describe('Petstore API - POST /pet (create) with e2e verification', () => {
       tags: [{ id: id, name: 'RRRR' }],
       status: 'available',
     };
+    
 
     const url = `${BASE}/pet`;
     const reqDesc = { method: 'POST', url, headers: { accept: 'application/json', 'content-type': 'application/json' }, body: payload };
